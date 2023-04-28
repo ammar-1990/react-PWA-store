@@ -10,26 +10,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { products, isLoading } = useSelector(getProducts);
 
-  useEffect(() => {
-    const q = query(collection(db, "products"));
-    const unsub = onSnapshot(
-      q,
-      (querySnapshot) => {
-        let list = [];
-        querySnapshot.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-        console.log(list);
-        dispatch(setProducts(list));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    return () => {
-      unsub();
-    };
-  }, [dispatch]);
+ 
 
   return (
     <main className="max-w-6xl mx-auto ">
