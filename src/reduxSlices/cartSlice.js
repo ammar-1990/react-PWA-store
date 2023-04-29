@@ -28,4 +28,5 @@ export const {setCart, setCartLoading} = cartSlice.actions
 
 export const getCart=(state)=>state.cart
 export const getCartTotal = (state)=>state.cart.cart.reduce((initial,el)=>initial + el.quantity,0)
+export const getCartTotalPrice = (state)=>state.cart.cart.reduce((initial,el)=>initial + el.quantity * el.price,0)
 export default cartSlice.reducer

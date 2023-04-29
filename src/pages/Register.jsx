@@ -4,8 +4,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../reduxSlices/userSlice";
+
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ const Register = () => {
   });
   const [error, setError] = useState("");
 
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -33,7 +32,7 @@ const Register = () => {
         });
       
      return userCredential.user  } ).then((user)=>{
-        console.log(user)
+       
         navigate('/')})
     } catch (error) {
       setError(error.message);

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase";
-import { getCart, setCart, setCartError, setCartLoading } from "../reduxSlices/cartSlice";
+import {  setCart, setCartLoading } from "../reduxSlices/cartSlice";
 import { setProducts, setProductsError } from "../reduxSlices/productsSlice";
 import { getDocs } from "firebase/firestore";
 import { getCartTotal } from "../reduxSlices/cartSlice";
@@ -86,7 +86,8 @@ const LayOut = () => {
     if (user)
       getDocs(cartsRef).then((querySnapshot) => {
         if (!querySnapshot.empty) {
-          console.log("carts exist");
+        
+
           const cartRef = collection(db, "carts", user?.id, "cart");
           getDocs(cartRef).then((querySnapshot) => {
         
@@ -99,7 +100,7 @@ const LayOut = () => {
                   querySnapshot.forEach((doc) => {
                     list.push({ id: doc.id, ...doc.data() });
                   });
-                  console.log("cart", list);
+             
                   dispatch(setCart(list));
                   dispatch(setCartLoading())
                 },
@@ -114,7 +115,7 @@ const LayOut = () => {
              
           });
         } else {
-          console.log("no carts");
+     
           dispatch(setCart([]));
         }
       });
@@ -122,7 +123,7 @@ const LayOut = () => {
 
   const cartTotal = useSelector(getCartTotal);
 
-  console.log(cartTotal);
+
 
   return (
     <div className="flex flex-col min-h-screen">

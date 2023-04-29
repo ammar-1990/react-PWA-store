@@ -1,7 +1,17 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { doc, addDoc, serverTimestamp, collection } from "firebase/firestore"; 
-import { db } from "../firebase";
+import { useEffect, useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { addDoc, serverTimestamp, collection } from "firebase/firestore"; 
+import { db, storage } from "../firebase";
+
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { getProduct } from "../reduxSlices/productSlice";
+import { useParams } from "react-router-dom";
+import { setProduct } from "../reduxSlices/productSlice";
+import { doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
@@ -11,6 +21,8 @@ const AddProduct = () => {
   const [url, setUrl] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false)
+  const {id} = useParams()
+  const dispatch = useDispatch()
 
   const imageRef = useRef();
 
@@ -30,6 +42,31 @@ e.preventDefault()
     });
    }
 
+   if(image){
+    
+  const imageRef = ref(storage, `posts/${id}/image`);
+
+  await uploadBytes(imageRef, image).then(
+    async (snapshot) => {
+      const downloadURL = await getDownloadURL(imageRef);
+      await addDoc(collection(db, "products"), {
+
+        title,
+        description:desc,
+        rate:+rate,
+        price,
+     image:downloadURL,
+       
+        timestamp:serverTimestamp()
+      });
+  
+    }
+  ).catch((err)=>console.log(err));
+
+
+
+   }
+
 
 
     setTitle('')
@@ -40,14 +77,105 @@ e.preventDefault()
     setImage(null)
     setLoading(false)
   }
+
+
+  const handleEdit = async(e)=> {
+    setLoading(true)
+e.preventDefault()
+if(!image){
+  const productRef = doc(db, "products",id);
+  await updateDoc(productRef, {
+    title,
+      description:desc,
+      rate:+rate,
+      price,
+   image:url,
+   timestamp:product.timestamp
+  });
+
+  }
+
+
+  if(image){
+    const productRef = doc(db, "products",id);
+    const imageRef = ref(storage, `posts/${id}/image`);
+
+    await uploadBytes(imageRef, image).then(
+      async (snapshot) => {
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(productRef, {
+          title,
+            description:desc,
+            rate:+rate,
+            price,
+         image:downloadURL,
+         timestamp:product.timestamp
+        });
+    
+      }
+    ).catch((err)=>console.log(err));
+  
+    
+  }
+
+  setTitle('')
+  setDesc('')
+  setRate('')
+  setPrice('')
+  setUrl('')
+  setImage(null)
+  setLoading(false)
+  dispatch(setProduct(null))
+
+
+  
+
+
+
+  }
 const navigate = useNavigate()
+const product = useSelector(getProduct)
+useEffect(()=>{
+
+  if(product)
+  {
+const { title, description, rate, price, image } = product;
+setTitle(title)
+setDesc(description)
+setRate(rate)
+setPrice(price)
+setUrl(image)
+  }
+
+
+
+},[product])
+
+useEffect(()=>{
+
+  return()=>{
+    dispatch(setProduct(null))
+    setTitle('')
+    setDesc('')
+    setRate('')
+    setPrice('')
+    setUrl('')
+    setImage(null)
+    setLoading(false)
+  }
+},[dispatch])
+
+
+if(id && !product)
+return <Navigate to={'/admin'} />
+
   return (
     <div>
       <h1 className="text-slate-900 text-center p-4 text-6xl mt-20">
         Admin panel
       </h1>
      
-        <form onSubmit={handleSubmit} className="w-[400px] mx-auto mt-10 gap-4 flex flex-col">
+        <form className="w-[400px] mx-auto mt-10 gap-4 flex flex-col">
           <input required type="text" className="input" placeholder="Title" value={title} onChange={(e)=>setTitle(e.target.value)} />
           <input
             required
@@ -68,7 +196,7 @@ const navigate = useNavigate()
             placeholder="Rate"
           />
           <input required type="number" className="input" placeholder="Price" onChange={e=>setPrice(e.target.value)} value={price} />
-          <input type="text" className="input disabled:opacity-50" placeholder="Image URL" onChange={e=>setUrl(e.target.value)} disabled={image}/>
+          <input value={url} type="text" className="input disabled:opacity-50" placeholder="Image URL" onChange={e=>setUrl(e.target.value)} disabled={image}/>
           <span className="text-center text-gray-700 text-lg">or</span>
           <button
             type="button"
@@ -98,12 +226,27 @@ const navigate = useNavigate()
             />
           </div>
         )}
-          <button  className="bg-slate-900 py-4 w-full text-white disabled:opacity-60"
+        {product && url && <div className="w-full relative">
+            <span className="absolute top-0 right-0 bg-slate-900 px-8 py-3 text-red-700 text-md  cursor-pointer"
+             onClick={() => setUrl('')}>
+              Delete
+            </span>
+            <img
+             
+              className="w-full object-contain "
+              src={url}
+              alt="product"
+            />
+          </div>}
+         { !product?<button onClick={handleSubmit}  className="bg-slate-900 py-4 w-full text-white disabled:opacity-60"
           disabled={!title || !desc || !price || !rate || (!url&&!image) || loading}>
             {loading ? 'Loading' :'Add Product'}
-          </button>
+          </button> : <button  onClick={handleEdit} className="bg-slate-900 py-4 w-full text-white disabled:opacity-60"
+          disabled={!title || !desc || !price || !rate || (!url&&!image) || loading}>
+            {loading ? 'Loading' :'Edit Product'}
+          </button>}
 
-          <button onClick={()=>navigate(-1)} className="self-start py-4">Back</button>
+          <button type="button" onClick={()=>navigate(-1)} className="self-start py-4">Back</button>
         </form>
 
     

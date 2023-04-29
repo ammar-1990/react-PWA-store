@@ -10,7 +10,7 @@ const CartItem = ({ id, title, description, image, rate, price, quantity }) => {
   const { user } = useSelector(getUser);
 
   const addHandle = async () => {
-    console.log("add");
+  
 
     const docRef = doc(db, "carts", user?.id, "cart", id);
 

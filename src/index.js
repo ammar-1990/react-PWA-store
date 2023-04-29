@@ -12,15 +12,15 @@ import Home from './pages/Home';
 import LayOut from './components/LayOut';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Product from './pages/ProductDetail';
+
 import Cart from './pages/Cart';
 import { Provider } from 'react-redux';
 import { store } from './store/app';
 import ProductDetail from './pages/ProductDetail';
 import AuthRequired from './components/AuthRequired';
 import Admin from './pages/Admin';
-import { collection, onSnapshot, query } from 'firebase/firestore';
-import { db } from './firebase';
+
+
 import AddProduct from './pages/AddProduct';
 
 
@@ -66,7 +66,11 @@ children:[
 },
 
   {
-    path:'/admin/add-product',
+    path:'add-product',
+    element:<AddProduct />
+  },
+  {
+    path:'edit-product/:id',
     element:<AddProduct />
   }
 ]

@@ -1,16 +1,14 @@
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "../firebase";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { getProducts } from "../reduxSlices/productsSlice";
-import { setProducts } from "../reduxSlices/productsSlice";
+
 import Product from "../components/Product";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { products, isLoading, error } = useSelector(getProducts);
 
-console.log(error,isLoading)
+  const { products, isLoading } = useSelector(getProducts);
+
+
   return (
     <main className="max-w-6xl mx-auto ">
          <h1 className="text-center text-slate-900 text-4xl uppercase py-3">products</h1>

@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom"
 const ProductDetail = () => {
 const {id} = useParams()
 const location = useLocation()
-console.log(location)
+
 
 
 const {products} = useSelector(getProducts)
@@ -22,6 +22,11 @@ const {user} = useSelector(getUser)
 const {cart} = useSelector(getCart)
 const itemExist  = cart.findIndex(el=>el.id===product.id) 
 const item = cart.find(el=>el.id === product.id)
+
+
+
+
+
 
 const handleClick = async ()=>{
 
@@ -46,7 +51,7 @@ else {
     image:product.image,
     quantity:1,
    });
-   console.log('added')}
+}
  
   
 }
@@ -56,8 +61,8 @@ else {
 
   return ( !product ? <p className="text-center text-3xl py-12 text-gray-700 animate-pulse">Loading...</p>:
   
-   <div className="max-w-6xl mx-auto pt-12"> 
-   <button onClick={()=>navigate(-1)} className='block ml-auto font-semibold mb-10 px-10 py-4 bg-slate-900 text-white m-2'>Back</button>
+   <div className="max-w-6xl mx-auto pt-6"> 
+   <button onClick={()=>navigate(-1)} className='block ml-auto font-semibold mb-10 px-10 py-2 bg-slate-900 text-white mx-2'>Back</button>
    <div className="  grid md:grid-cols-2 gap-8">
     
       <div className="">

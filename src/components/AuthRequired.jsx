@@ -10,6 +10,7 @@ import { Navigate } from 'react-router-dom'
 
 const AuthRequired = ({children}) => {
     const {user,isLoading} = useSelector(getUser)
+  
 
 
 if(!isLoading)
