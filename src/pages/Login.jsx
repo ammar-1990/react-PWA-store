@@ -27,6 +27,7 @@ const Login = () => {
       .finally(() => {
         setEmail("");
         setPassword("");
+        setLoading(false)
       });
   };
 

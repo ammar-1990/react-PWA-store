@@ -17,6 +17,11 @@ import Cart from './pages/Cart';
 import { Provider } from 'react-redux';
 import { store } from './store/app';
 import ProductDetail from './pages/ProductDetail';
+import AuthRequired from './components/AuthRequired';
+import Admin from './pages/Admin';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { db } from './firebase';
+import AddProduct from './pages/AddProduct';
 
 
 const router = createBrowserRouter([
@@ -37,7 +42,7 @@ const router = createBrowserRouter([
     },
     {
       path:'cart',
-      element:<Cart />
+      element:<AuthRequired><Cart /></AuthRequired>
     }
   ]
 
@@ -50,6 +55,22 @@ const router = createBrowserRouter([
 {
   path:'/register',
   element:<Register />
+},
+{
+path:'/admin',
+
+children:[
+{
+  index:true,
+  element:<Admin />
+},
+
+  {
+    path:'/admin/add-product',
+    element:<AddProduct />
+  }
+]
+
 }
 
 ]
@@ -59,11 +80,11 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store = {store}>
   <RouterProvider router={router} />
   </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

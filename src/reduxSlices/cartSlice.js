@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     cart:[],
-    isLoading:true
+    isLoading:true,
+    error:null,
 }
 
 
@@ -12,15 +13,18 @@ const cartSlice = createSlice({
     reducers:{
         setCart:(state,action)=>{
             state.cart=action.payload;
-            state.isLoading=false
+         
         },
+        setCartLoading:(state)=>{
+            state.isLoading=false
+        }
      
         }
     }
 )
 
 
-export const {setCart} = cartSlice.actions
+export const {setCart, setCartLoading} = cartSlice.actions
 
 export const getCart=(state)=>state.cart
 export const getCartTotal = (state)=>state.cart.cart.reduce((initial,el)=>initial + el.quantity,0)

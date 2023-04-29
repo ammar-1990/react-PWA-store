@@ -5,3 +5,12 @@
 .input {
     @apply outline-none border border-b-slate-900 border-t-0 border-r-0 border-l-0 p-2 w-full text-slate-800
 }
+
+.scrolled::-webkit-scrollbar {
+background-color: transparent;
+width: 5px;
+}
+
+.scrolled::-webkit-scrollbar-thumb{
+    @apply bg-slate-900;
+}
