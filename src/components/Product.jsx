@@ -59,12 +59,12 @@ const toAdd = async ()=> {
         <p className="py-2 italic">${price}</p>
       </div>
     {!isLoading &&  user &&<> {itemExist === -1 && (
-        <button onClick={toAdd} className={`bg-orange-400 flex gap-2 py-1  text-white pl-2 pr-4 rounded-r-full text-sm max-w-fit duration-1000 ${cartLoad ? 'opacity-0' : 'opacity-100'} mb-10`}>
+        <button onClick={toAdd} className={`bg-orange-400 flex gap-2 py-1  text-white pl-2 pr-4 rounded-r-full text-sm max-w-fit duration-1000  mb-10`}>
       Add to cart  <ShoppingCartIcon className="h-5 text-white" />  {" "}
         </button>
       )}
       {item && (
-        <div className={`p-2 border text-sm w-full border-r-0 border-l-0 mb-10 flex items-center gap-4 justify-center  duration-1000 ${cartLoad ? 'opacity-0' : 'opacity-100'} `}>
+        <div className={`p-2 border text-sm w-full border-r-0 border-l-0 mb-10 flex items-center gap-4 justify-center  duration-1000  `}>
           <span>in cart</span>
           <button onClick={addHandle} className="p-2 font-bold text-xl">+</button> {item.quantity}
           <button onClick={minusHandle} className="p-2 font-bold text-xl">-</button>

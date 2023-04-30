@@ -9,6 +9,7 @@ const Home = () => {
   const { products, isLoading } = useSelector(getProducts);
 
 
+
   return (
     <main className="max-w-6xl mx-auto ">
          <h1 className="text-center text-slate-900 text-4xl uppercase py-3">products</h1>
