@@ -53,7 +53,7 @@ const Admin = () => {
           
            
     <div className="flex-1 overflow-y-scroll scrolled overflow-x-hidden">
-<table className="w-full  border-white border-separate">
+<table className="w-full  border-white border-separate px-6">
 <thead className="">
 
     <tr>

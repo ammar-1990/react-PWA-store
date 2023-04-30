@@ -127,10 +127,10 @@ const navigate = useNavigate()
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className=" py-6 px-3  bg-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto flex items-center justify-between text-white">
+      <header className=" py-6 px-3  bg-slate-800 sticky top-0 z-50 select-none">
+        <div className="max-w-6xl mx-auto flex sm:flex-row min-w-fit flex-col sm:gap-0 gap-8 items-center justify-between text-white">
           <Link to={"/"}>
-            <h1 className="sm:text-2xl capitalize cursor-pointer font-sans font-semibold ">
+            <h1 className="sm:text-2xl capitalize cursor-pointer font-sans font-semibold flex items-center gap-1">
               Alpha{" "}
               <span className="p-1 bg-orange-400 inline-flex text-slate-900  justify-center items-center rounded-md">
                 store
@@ -140,22 +140,22 @@ const navigate = useNavigate()
           <nav
             className={`${
               isLoading ? "opacity-0" : "opacity-100"
-            } duration-150 flex gap-8 items-center`}
+            } duration-150 flex gap-8 items-center w-full `}
           >
          
 
             {user ? (
              
                 
-              <div className={`flex gap-8 items-center  duration-150`}>
+              <div className={`flex w-full sm:gap-8 items-center sm:justify-end justify-between  duration-150`}>
               <p className={`text-white capitalize duration-150 sm:text-base text-xs`}>
                 {" "}
                 Welcome <span>{user?.username}</span>
               </p>
-            <div role="button" onClick={()=>navigate('/admin')} className="flex items-center gap-1 text-pointer">
+            <div role="button" onClick={()=>navigate('/admin')} className="flex sm:text-base text-xs items-center gap-1 text-pointer">
               <span className=" ">Admin panel </span>
               <ChartBarIcon className="h-6 rounded-full w-6  p-[3px] bg-white text-orange-400" /></div>
-                <Link to={"/cart"} className="relative mr-5">
+                <Link to={"/cart"} className="relative">
                   <span
                     className={`absolute  -top-1 -right-1 sm:h-4 sm:w-4 h-3 w-3 rounded-full p-1 text-xs bg-red-500 text-white flex items-center  ${
                       !cartTotal ? "opacity-0" : "opacity-100"
@@ -165,12 +165,12 @@ const navigate = useNavigate()
                   </span>
                   <ShoppingCartIcon className="h-6 sm:h-8 text-orange-400 cursor-pointer " />
                 </Link>
-                <button onClick={() => signOut(auth)} className="text-white">
+                <button onClick={() => signOut(auth)} className="text-white sm:text-base text-xs">
                   Sign out
                 </button>
               </div>
             ) : (
-              <>
+              <div className="flex justify-center  w-full sm:justify-end">
                 <Link to={"/login"}>
                   <span className="text-white text-md cursor-pointer">
                     Login /
@@ -182,7 +182,7 @@ const navigate = useNavigate()
                     Register
                   </span>
                 </Link>
-              </>
+              </div>
             )}
           </nav>
         </div>

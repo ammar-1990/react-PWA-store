@@ -11,7 +11,7 @@ const Home = () => {
 
 
   return (
-    <main className="max-w-6xl mx-auto ">
+    <main className="max-w-6xl mx-auto sm:p-0  ">
          <h1 className="text-center text-slate-900 text-4xl uppercase py-3">products</h1>
       {isLoading && 
         <div className="text-slate-900 animate-pulse text-xl text-center p-3">loading ...</div>}

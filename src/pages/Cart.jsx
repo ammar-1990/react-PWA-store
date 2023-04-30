@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
-import { getCart, setCartLoading } from "../reduxSlices/cartSlice";
+
+import { getCart } from "../reduxSlices/cartSlice";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { useNavigate } from "react-router-dom";
 import { getCartTotalPrice } from "../reduxSlices/cartSlice";
-import { useDispatch } from "react-redux";
+
 
 const Cart = () => {
-const dispatch = useDispatch()
 
-
-  useEffect(()=>{
-    return ()=>{
-      dispatch(setCartLoading(true))
-    }
-  },[dispatch])
   const { isLoading, cart } = useSelector(getCart);
   const total = useSelector(getCartTotalPrice)
 
