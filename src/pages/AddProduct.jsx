@@ -176,7 +176,9 @@ return <Navigate to={'/admin'} />
       </h1>
      
         <form className="w-[400px] mx-auto mt-10 gap-4 flex flex-col">
+          {product &&<label className="label">Title</label>}
           <input required type="text" className="input" placeholder="Title" value={title} onChange={(e)=>setTitle(e.target.value)} />
+          {product &&<label className="label">Desctiption</label>}
           <input
             required
             value={desc}
@@ -185,6 +187,7 @@ return <Navigate to={'/admin'} />
             className="input"
             placeholder="Description"
           />
+             {product &&<label className="label">Rate</label>}
           <input
           onChange={e=>setRate(e.target.value)}
           value={rate}
@@ -195,7 +198,9 @@ return <Navigate to={'/admin'} />
             className="input"
             placeholder="Rate"
           />
+             {product &&<label className="label">Price</label>}
           <input required type="number" className="input" placeholder="Price" onChange={e=>setPrice(e.target.value)} value={price} />
+          {product &&<label className="label">Image URL</label>}
           <input value={url} type="text" className="input disabled:opacity-50" placeholder="Image URL" onChange={e=>setUrl(e.target.value)} disabled={image}/>
           <span className="text-center text-gray-700 text-lg">or</span>
           <button

@@ -15,9 +15,11 @@ const cartSlice = createSlice({
             state.cart=action.payload;
          
         },
-        setCartLoading:(state)=>{
-            state.isLoading=false
-        }
+        setCartLoading:(state,action)=>{
+            state.isLoading=action.payload
+        },
+
+        
      
         }
     }

@@ -1,17 +1,26 @@
 
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import AdminItem from "../components/AdminItem"
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 import { db } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, setProducts } from "../reduxSlices/productsSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 
 const Admin = () => {
     const dispatch = useDispatch()
+ 
+
     const {products , isLoading} = useSelector(getProducts)
+
+
+// 
+
+
+
     useEffect(() => {
         const q = query(collection(db, "products"),orderBy("timestamp", "desc"))
         const unsub = onSnapshot(
@@ -33,12 +42,14 @@ const Admin = () => {
         };
       }, [dispatch]);
 
+      const navigate = useNavigate()
+
 
 
   return (
     <div className="max-w-6xl mx-auto  h-screen flex flex-col py-3">
-    
-                <h1 className="text-slate-900 text-center p-4 text-6xl">Admin panel</h1>
+    <div className="flex justify-between items-center">  <h1 className="text-slate-900 text-center p-4 text-6xl">Admin panel</h1> <button onClick={()=>navigate('/')} className="bg-slate-900 text-white px-4 py-2 ">Home page</button></div>
+              
           
            
     <div className="flex-1 overflow-y-scroll scrolled overflow-x-hidden">

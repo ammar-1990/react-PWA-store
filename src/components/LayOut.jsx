@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import {  setCart, setCartLoading } from "../reduxSlices/cartSlice";
 import { setProducts, setProductsError } from "../reduxSlices/productsSlice";
 import { getDocs } from "firebase/firestore";
 import { getCartTotal } from "../reduxSlices/cartSlice";
-
+import {ChartBarIcon} from '@heroicons/react/24/solid'
 const LayOut = () => {
   const { user, isLoading } = useSelector(getUser);
   const dispatch = useDispatch();
@@ -102,7 +102,7 @@ const LayOut = () => {
                   });
              
                   dispatch(setCart(list));
-                  dispatch(setCartLoading())
+                  dispatch(setCartLoading(false))
                 },
                 (error) => {
               
@@ -122,7 +122,7 @@ const LayOut = () => {
   }, [user, dispatch]);
 
   const cartTotal = useSelector(getCartTotal);
-
+const navigate = useNavigate()
 
 
   return (
@@ -142,15 +142,19 @@ const LayOut = () => {
               isLoading ? "opacity-0" : "opacity-100"
             } duration-150 flex gap-8 items-center`}
           >
-            {user && (
+         
+
+            {user ? (
+             
+                
+              <div className={`flex gap-8 items-center  duration-150`}>
               <p className={`text-white capitalize duration-150 sm:text-base text-xs`}>
                 {" "}
                 Welcome <span>{user?.username}</span>
               </p>
-            )}
-
-            {user ? (
-              <div className={`flex gap-4 items-center  duration-150`}>
+            <div role="button" onClick={()=>navigate('/admin')} className="flex items-center gap-1 text-pointer">
+              <span className=" ">Admin panel </span>
+              <ChartBarIcon className="h-6 rounded-full w-6  p-[3px] bg-white text-orange-400" /></div>
                 <Link to={"/cart"} className="relative mr-5">
                   <span
                     className={`absolute  -top-1 -right-1 sm:h-4 sm:w-4 h-3 w-3 rounded-full p-1 text-xs bg-red-500 text-white flex items-center  ${

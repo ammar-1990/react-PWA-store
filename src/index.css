@@ -14,3 +14,7 @@ width: 5px;
 .scrolled::-webkit-scrollbar-thumb{
     @apply bg-slate-900;
 }
+
+.label {
+    @apply text-gray-700 font-bold -mb-5
+}

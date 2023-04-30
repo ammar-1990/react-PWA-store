@@ -18,7 +18,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        navigate("/");
+        navigate("/",{replace:true});
         // ...
       })
       .catch((error) => {

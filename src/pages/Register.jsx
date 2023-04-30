@@ -33,7 +33,7 @@ const Register = () => {
       
      return userCredential.user  } ).then((user)=>{
        
-        navigate('/')})
+        navigate('/',{replace:true})})
     } catch (error) {
       setError(error.message);
     } finally {

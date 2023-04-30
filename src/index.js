@@ -62,16 +62,16 @@ path:'/admin',
 children:[
 {
   index:true,
-  element:<Admin />
+  element:<AuthRequired><Admin /></AuthRequired>
 },
 
   {
     path:'add-product',
-    element:<AddProduct />
+    element:<AuthRequired><AddProduct /></AuthRequired>
   },
   {
     path:'edit-product/:id',
-    element:<AddProduct />
+    element:<AuthRequired><AddProduct /></AuthRequired>
   }
 ]
 
