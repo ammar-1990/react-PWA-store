@@ -40,7 +40,7 @@ const Product = ({ id, description, title, rate, image, price }) => {
       });
     }
   };
-  console.log(isLoading);
+
   return (
     <article className="shadow-md hover:scale-105 duration-200  flex flex-col  ">
       <img className="object-contain h-[300px] w-full" src={image} alt="" />

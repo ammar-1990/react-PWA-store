@@ -6,6 +6,7 @@ import { db } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, setProducts } from "../reduxSlices/productsSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { setCartLoading } from "../reduxSlices/cartSlice";
 
 
 
@@ -17,7 +18,12 @@ const Admin = () => {
     const {products , isLoading} = useSelector(getProducts)
 
 
-// 
+useEffect(()=>{
+
+  return ()=>{
+    dispatch(setCartLoading(true))
+  }
+},[])
 
 
 

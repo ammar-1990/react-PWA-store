@@ -87,7 +87,7 @@ const LayOut = () => {
       getDocs(cartsRef).then((querySnapshot) => {
         if (!querySnapshot.empty) {
         
-
+          dispatch(setCartLoading(true))
           const cartRef = collection(db, "carts", user?.id, "cart");
           getDocs(cartRef).then((querySnapshot) => {
         
