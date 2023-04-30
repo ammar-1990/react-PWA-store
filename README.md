@@ -32,6 +32,7 @@
 Это приложение было построено с использованием следующих технологий:
 
 - React
+- Redux Toolkit
 - Firebase (Authentication, Realtime Database)
 - Tailwind
 - React-router-dom
